@@ -19,10 +19,9 @@ class App extends Component {
     let currentText = this.state.content
 
     let characters = currentText.split('')
-    console.log(characters)
     let newText = (characters.slice(0,index)).join('')
     newText += (characters.slice(index + 1, currentText.len)).join('')
-    console.log(newText)
+    
     this.setState({content: newText})
   }
 

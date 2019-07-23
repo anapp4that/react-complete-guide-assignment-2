@@ -7,16 +7,23 @@ import './Character/Character.css'
 class App extends Component {
   state = {
     length: 0,
-    content: null
+    content: ''
   }
 
   inputChangedHandler = (event) => {
     let length = event.target.value.length
-    this.setState({ length: length, content: event.target.value })
+    this.setState({length: length, content: event.target.value})
   }
 
-  characterClickedHandler = (event) => {
-    //TODO delete the clicked letter from the Character components, and from the content of the input box
+  characterClickedHandler = (index) => {
+    let currentText = this.state.content
+
+    let characters = currentText.split('')
+    console.log(characters)
+    let newText = (characters.slice(0,index)).join('')
+    newText += (characters.slice(index + 1, currentText.len)).join('')
+    console.log(newText)
+    this.setState({content: newText})
   }
 
   render() {
@@ -40,11 +47,11 @@ class App extends Component {
     }
     return (
       <div className="App">
-        <input type="text" onChange={(event) => this.inputChangedHandler(event)}></input>
+        <p>Enter some text below:</p>
+        <input type="text" value={this.state.content} onChange={(event) => this.inputChangedHandler(event)}></input>
         {this.state.length > 0 &&
-          <p>Input Length: {this.state.length}</p>
+          <Validation length={this.state.length} />
         }
-        <Validation length={this.state.length} />
         {characters}
       </div>
     );
